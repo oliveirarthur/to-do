@@ -1,0 +1,15 @@
+<div class="card">
+  <form [formGroup]="form">
+    <div class="card-header text-nowrap text-center" *ngIf="toDo.title">
+      {{ toDo.title }}
+    </div>
+    <div class="card-body">
+      <div class="text-nowrap" *ngFor="let item of toDo.items">
+        <label>
+          <input type="checkbox" [formControlName]="item.id" />
+          {{ item.description }}
+        </label>
+      </div>
+    </div>
+  </form>
+</div>

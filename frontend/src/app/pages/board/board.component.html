@@ -1,0 +1,7 @@
+<div class="container-fluid">
+  <div class="row">
+    <div class="col my-3" *ngFor="let toDo of toDos$ | async">
+      <app-to-do-item [toDo]="toDo"></app-to-do-item>
+    </div>
+  </div>
+</div>

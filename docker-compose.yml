@@ -1,0 +1,18 @@
+version: '3'
+
+services:
+  frontend:
+    build: ./frontend
+    ports:
+      - 4200:4200
+    volumes:
+      - ./frontend:/app
+    working_dir: /app
+
+  backend:
+    build: ./backend
+    ports:
+      - 3333:3333
+    volumes:
+      - ./backend:/app
+    working_dir: /app

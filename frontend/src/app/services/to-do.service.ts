@@ -29,4 +29,8 @@ export class ToDoService {
       { password },
     );
   }
+
+  outOfTasks() {
+    return this.http.get<Array<IToDoItem>>(`${this.base_url}out-of-tasks`);
+  }
 }

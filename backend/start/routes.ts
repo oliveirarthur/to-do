@@ -20,5 +20,6 @@
 
 import Route from '@ioc:Adonis/Core/Route'
 
-Route.resource('to-do', 'ToDosController')
+Route.get('to-do/out-of-tasks', 'ToDosController.outOfTasks')
 Route.post('to-do/:id/change-status', 'ToDosController.changeStatus')
+Route.resource('to-do', 'ToDosController')

@@ -47,4 +47,8 @@ export class BoardComponent implements OnInit {
   openNew() {
     const modalRef = this.modalService.open(ToDoItemFormComponent);
   }
+
+  outOfTasks() {
+    this.toDoService.outOfTasks().subscribe();
+  }
 }

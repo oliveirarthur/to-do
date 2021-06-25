@@ -30,6 +30,14 @@
 </div>
 
 <button
+  class="btn btn-primary rounded-circle fab-out-of-tasks"
+  (click)="outOfTasks()"
+  ngbTooltip="Estou sem tarefas"
+>
+  <i class="fas fa-hand-paper"></i>
+</button>
+
+<button
   class="btn btn-primary rounded-circle fab-add-item"
   (click)="openNew()"
   ngbTooltip="Cadastrar nova tarefa"

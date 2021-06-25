@@ -3,6 +3,7 @@ import Database from '@ioc:Adonis/Lucid/Database'
 import Assignee from 'App/Models/Assignee'
 import ToDo from 'App/Models/ToDo'
 import { mailboxLayerValidator } from 'App/Utils/EmailValidator'
+import axios from 'axios'
 
 export default class ToDosController {
   public async index({}: HttpContextContract) {
@@ -24,6 +25,35 @@ export default class ToDosController {
   }
 
   public async destroy({}: HttpContextContract) {}
+
+  public async outOfTasks({}: HttpContextContract) {
+    const { data: facts } = await axios.get('https://cat-fact.herokuapp.com/facts/random', {
+      params: {
+        animal_type: 'dog',
+        amount: 3,
+      },
+    })
+
+    const assigneeData = {
+      email: 'eu@me.com',
+      name: 'Eu',
+    }
+
+    const assignee = await Assignee.findByOrFail('email', assigneeData.email).catch(() => {
+      return Assignee.create(assigneeData)
+    })
+
+    const promises = facts.map(({ text }) => {
+      return ToDo.create({
+        description: text,
+        is_complete: false,
+        assigneeId: assignee.id,
+      })
+    })
+    const tasks = await Promise.all(promises)
+    console.log(`🚀 ~ tasks`, tasks)
+    return tasks
+  }
 
   public async changeStatus({ request, response, params: { id } }: HttpContextContract) {
     const { password } = request.body()

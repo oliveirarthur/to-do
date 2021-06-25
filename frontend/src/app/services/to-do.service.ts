@@ -1,27 +1,25 @@
+import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { environment } from 'src/environments/environment';
 import { IToDoItem } from 'src/interfaces/to-do';
 
 @Injectable({
   providedIn: 'root',
 })
 export class ToDoService {
-  constructor() {}
+  constructor(private http: HttpClient) {}
 
-  async list() {
-    return Array.from({ length: 100 }, (v, k) => {
-      return {
-        id: k,
-        description: `Task ${k}`,
-        assignee: {
-          name: `Responsável ${k}`,
-          email: `assignee@example.com`,
-        },
-      } as IToDoItem;
-    });
+  private readonly base_url = `${environment.backend.base_url}to-do/`;
+
+  list() {
+    return this.http.get(this.base_url);
   }
 
-  async save(item: IToDoItem) {
-    console.log(`🚀 ~ item`, item);
-    return item;
+  save(item: IToDoItem) {
+    const id = item.id || '';
+    if (id) {
+      return this.http.put(`${this.base_url}${id}`, item);
+    }
+    return this.http.post(`${this.base_url}`, item);
   }
 }

@@ -14,10 +14,11 @@ export class ToDoItemFormComponent implements OnInit, OnChanges {
 
   form = this.formBuilder.group({
     id: this.formBuilder.control(''),
-    description: this.formBuilder.control(''),
+    description: this.formBuilder.control('description'),
+    isComplete: this.formBuilder.control(false),
     assignee: this.formBuilder.group({
-      name: this.formBuilder.control(''),
-      email: this.formBuilder.control(''),
+      name: this.formBuilder.control('name'),
+      email: this.formBuilder.control('email@example.com'),
     }),
   });
   isLoading = false;
@@ -41,13 +42,14 @@ export class ToDoItemFormComponent implements OnInit, OnChanges {
     });
   }
 
-  updateToDoItem(item: IToDoItem) {
+  save(item: IToDoItem) {
     this.isLoading = true;
     this.toDoService
       .save(item)
+      .toPromise()
       .then(() => {
         this.modalService.dismissAll();
-        alert('Atualizado com sucesso!');
+        alert((item.id ? 'Atualizado' : 'Inserido') + ' com sucesso!');
       })
       .catch(() => {
         alert(

@@ -1,9 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
-import { BehaviorSubject } from 'rxjs';
+import { BehaviorSubject, interval, timer } from 'rxjs';
 import { ToDoItemFormComponent } from 'src/app/components/to-do-item-form/to-do-item-form.component';
 import { ToDoService } from 'src/app/services/to-do.service';
 import { IToDoItem } from 'src/interfaces/to-do';
+import { switchMap } from 'rxjs/operators';
 
 @Component({
   selector: 'app-board',
@@ -19,12 +20,12 @@ export class BoardComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    this.loadToDos();
-  }
-
-  async loadToDos() {
-    const items = await this.toDoService.list();
-    this.toDos$.next(items);
+    // FIXME: implement websocket
+    const timer = interval(1000)
+      .pipe(switchMap(() => this.toDoService.list()))
+      .subscribe(async (items) => {
+        this.toDos$.next(items);
+      });
   }
 
   openNew() {

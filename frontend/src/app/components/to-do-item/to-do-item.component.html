@@ -19,6 +19,7 @@
     </button>
     <button
       class="btn btn-sm btn-outline-primary mx-1"
+      [disabled]="toDo.is_complete && toDo.change_count >= 2"
       (click)="changeStatus(toDo)"
     >
       <i

@@ -3,7 +3,7 @@ import { CommonModule } from '@angular/common';
 import { ToDoItemComponent } from './to-do-item/to-do-item.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { ToDoItemFormComponent } from './to-do-item-form/to-do-item-form.component';
-import { NgbModalModule } from '@ng-bootstrap/ng-bootstrap';
+import { NgbModalModule, NgbTooltipModule } from '@ng-bootstrap/ng-bootstrap';
 import { ChangeStatusModalComponent } from './change-status-modal/change-status-modal.component';
 
 @NgModule({
@@ -13,6 +13,12 @@ import { ChangeStatusModalComponent } from './change-status-modal/change-status-
     ChangeStatusModalComponent,
   ],
   exports: [ToDoItemComponent, ChangeStatusModalComponent],
-  imports: [CommonModule, FormsModule, ReactiveFormsModule, NgbModalModule],
+  imports: [
+    CommonModule,
+    FormsModule,
+    ReactiveFormsModule,
+    NgbModalModule,
+    NgbTooltipModule,
+  ],
 })
 export class ComponentsModule {}

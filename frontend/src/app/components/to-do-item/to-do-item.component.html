@@ -14,12 +14,17 @@
   </div>
 
   <div class="card-footer">
-    <button class="btn btn-sm btn-outline-primary" (click)="openEdit(toDo)">
+    <button
+      class="btn btn-sm btn-outline-primary"
+      ngbTooltip="Editar"
+      (click)="openEdit(toDo)"
+    >
       <i class="fas fa-edit"></i>
     </button>
     <button
       class="btn btn-sm btn-outline-primary mx-1"
       [disabled]="toDo.is_complete && toDo.change_count >= 2"
+      [ngbTooltip]="tooltip(toDo)"
       (click)="changeStatus(toDo)"
     >
       <i

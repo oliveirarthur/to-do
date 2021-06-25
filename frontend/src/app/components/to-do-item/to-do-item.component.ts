@@ -50,4 +50,14 @@ export class ToDoItemComponent implements OnInit {
       this.isLoading = false;
     });
   }
+
+  tooltip(toDo: IToDoItem) {
+    if (toDo.is_complete && toDo.change_count >= 2) {
+      return 'Este item  já foi alterado duas vezes';
+    }
+    if (toDo.is_complete) {
+      return 'Mover para pendente';
+    }
+    return 'Mover para completo';
+  }
 }

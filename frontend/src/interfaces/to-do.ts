@@ -1,7 +1,7 @@
 export interface IToDoItem {
   id?: number;
   description: string;
-  isComplete: boolean;
+  is_complete: boolean;
   assignee: {
     id?: number;
     name: string;

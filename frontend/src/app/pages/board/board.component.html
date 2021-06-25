@@ -1,8 +1,31 @@
-<div class="container-fluid mb-5">
+<div class="container-fluid mb-5" *ngIf="toDos$ | async as toDos">
   <div class="row">
-    <div class="col my-3" *ngFor="let toDo of toDos$ | async">
-      <app-to-do-item [toDo]="toDo"></app-to-do-item>
+    <div class="col-12 h3">
+      Pendentes
+      <small> ({{ toDos?.pending?.length }}) </small>
     </div>
+    <ng-container *ngIf="toDos?.pending?.length > 0; else noPendingToDos">
+      <div class="col my-3" *ngFor="let toDo of toDos.pending">
+        <app-to-do-item [toDo]="toDo"></app-to-do-item>
+      </div>
+    </ng-container>
+    <ng-template #noPendingToDos>
+      <div class="col-12">Não há tarefas pendentes</div>
+    </ng-template>
+  </div>
+
+  <div class="row">
+    <div class="col-12 h3">
+      Completas <small> ({{ toDos?.completed?.length }}) </small>
+    </div>
+    <ng-container *ngIf="toDos?.completed?.length > 0; else noCompletedToDos">
+      <div class="col my-3" *ngFor="let toDo of toDos.completed">
+        <app-to-do-item [toDo]="toDo"></app-to-do-item>
+      </div>
+    </ng-container>
+    <ng-template #noCompletedToDos>
+      <div class="col-12">Não há tarefas completas</div>
+    </ng-template>
   </div>
 </div>
 

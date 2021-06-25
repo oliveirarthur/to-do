@@ -25,11 +25,24 @@ export default class ToDosController {
 
   public async destroy({}: HttpContextContract) {}
 
+  public async changeStatus({ request, response, params: { id } }: HttpContextContract) {
+    const { password } = request.body()
+    const toDoInstance = await ToDo.findOrFail(id)
+    if (toDoInstance.is_complete && password !== 'TrabalheNaSaipos') {
+      // FIXME: save hashed password on database
+      throw new Error('Senha inválida!')
+    }
+    toDoInstance.is_complete = !toDoInstance.is_complete
+    toDoInstance.change_count++
+    await toDoInstance.save()
+    return toDoInstance
+  }
+
   async save({ request, response }: Partial<HttpContextContract>) {
-    const { description, isComplete, assignee, id: toDoId } = request.body()
+    const { description, isComplete, assignee, id: toDoId } = request!.body()
     const emailValidationResult = await mailboxLayerValidator(assignee.email)
     if (!emailValidationResult.mx_found) {
-      return response.status(422).send(emailValidationResult)
+      return response!.status(422).send(emailValidationResult)
     }
 
     return await Database.transaction(async (trx) => {

@@ -12,7 +12,10 @@ import { startWith, switchMap } from 'rxjs/operators';
   styleUrls: ['./board.component.sass'],
 })
 export class BoardComponent implements OnInit {
-  toDos$ = new BehaviorSubject<any>([]);
+  toDos$ = new BehaviorSubject<any>({
+    completed: [],
+    pending: [],
+  });
 
   constructor(
     private toDoService: ToDoService,
@@ -27,7 +30,17 @@ export class BoardComponent implements OnInit {
         switchMap(() => this.toDoService.list()),
       )
       .subscribe(async (items) => {
-        this.toDos$.next(items);
+        const completed = items.filter((item) => item.is_complete);
+        const pending = items.filter((item) => !item.is_complete);
+        if (
+          completed.length !== this.toDos$.value.completed.length ||
+          pending.length !== this.toDos$.value.pending.length
+        ) {
+          this.toDos$.next({
+            completed,
+            pending,
+          });
+        }
       });
   }
 

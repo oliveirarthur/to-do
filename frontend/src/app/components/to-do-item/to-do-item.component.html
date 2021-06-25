@@ -17,5 +17,14 @@
     <button class="btn btn-sm btn-outline-primary" (click)="openEdit(toDo)">
       <i class="fas fa-edit"></i>
     </button>
+    <button
+      class="btn btn-sm btn-outline-primary mx-1"
+      (click)="changeStatus(toDo)"
+    >
+      <i
+        class="fas"
+        [ngClass]="toDo.is_complete ? 'fa-arrow-up' : 'fa-arrow-down'"
+      ></i>
+    </button>
   </div>
 </div>

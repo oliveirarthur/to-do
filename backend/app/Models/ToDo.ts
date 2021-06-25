@@ -15,6 +15,8 @@ export default class ToDo extends BaseModel {
   public description
   @column()
   public is_complete
+  @column()
+  public change_count
 
   @column.dateTime({ autoCreate: true })
   public createdAt: DateTime

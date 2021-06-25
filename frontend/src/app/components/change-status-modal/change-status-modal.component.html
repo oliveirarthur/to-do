@@ -1,0 +1,17 @@
+<div class="card">
+  <div class="card-header">Alterar status</div>
+  <div class="card-body">
+    <label class="w-100">
+      Informe a senha para alterar o status
+      <input type="password" class="form-control" [(ngModel)]="password" />
+    </label>
+  </div>
+  <div class="card-footer">
+    <button
+      class="btn btn-outline-primary"
+      (click)="changeStatus(toDo, password)"
+    >
+      Alterar
+    </button>
+  </div>
+</div>

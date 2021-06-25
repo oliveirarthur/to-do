@@ -12,7 +12,7 @@ export class ToDoService {
   private readonly base_url = `${environment.backend.base_url}to-do/`;
 
   list() {
-    return this.http.get(this.base_url);
+    return this.http.get<Array<IToDoItem>>(this.base_url);
   }
 
   save(item: IToDoItem) {
@@ -21,5 +21,12 @@ export class ToDoService {
       return this.http.put(`${this.base_url}${id}`, item);
     }
     return this.http.post(`${this.base_url}`, item);
+  }
+
+  changeStatus(item: IToDoItem, password?: string) {
+    return this.http.post<Array<IToDoItem>>(
+      `${this.base_url}${item.id}/change-status`,
+      { password },
+    );
   }
 }

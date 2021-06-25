@@ -21,3 +21,4 @@
 import Route from '@ioc:Adonis/Core/Route'
 
 Route.resource('to-do', 'ToDosController')
+Route.post('to-do/:id/change-status', 'ToDosController.changeStatus')

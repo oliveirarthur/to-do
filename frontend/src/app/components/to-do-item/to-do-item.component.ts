@@ -4,6 +4,7 @@ import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { combineLatest } from 'rxjs';
 import { ToDoService } from 'src/app/services/to-do.service';
 import { IToDoItem } from 'src/interfaces/to-do';
+import { ChangeStatusModalComponent } from '../change-status-modal/change-status-modal.component';
 import { ToDoItemFormComponent } from '../to-do-item-form/to-do-item-form.component';
 
 @Component({
@@ -14,7 +15,12 @@ import { ToDoItemFormComponent } from '../to-do-item-form/to-do-item-form.compon
 export class ToDoItemComponent implements OnInit {
   @Input() toDo: IToDoItem = {} as IToDoItem;
 
-  constructor(private modalService: NgbModal) {}
+  isLoading = false;
+
+  constructor(
+    private modalService: NgbModal,
+    private toDoService: ToDoService,
+  ) {}
 
   ngOnInit(): void {}
 
@@ -24,5 +30,24 @@ export class ToDoItemComponent implements OnInit {
       modalRef.componentInstance as ToDoItemFormComponent;
     toDoItemFormComponentInstance.toDo = toDo;
     toDoItemFormComponentInstance.ngOnChanges();
+  }
+
+  changeStatus(toDo: IToDoItem) {
+    this.isLoading = true;
+    if (toDo.is_complete) {
+      const modalRef = this.modalService.open(ChangeStatusModalComponent);
+      const toDoItemFormComponentInstance =
+        modalRef.componentInstance as ToDoItemFormComponent;
+      toDoItemFormComponentInstance.toDo = toDo;
+
+      combineLatest([modalRef.closed, modalRef.dismissed]).subscribe(() => {
+        this.isLoading = false;
+      });
+      return;
+    }
+
+    this.toDoService.changeStatus(toDo).subscribe(() => {
+      this.isLoading = false;
+    });
   }
 }

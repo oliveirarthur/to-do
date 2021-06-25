@@ -44,7 +44,11 @@
     </div>
   </form>
   <div class="card-footer">
-    <button class="btn btn-outline-primary" [disabled]="form.invalid">
+    <button
+      class="btn btn-outline-primary"
+      [disabled]="form.invalid"
+      (click)="updateToDoItem(form.value)"
+    >
       Salvar
     </button>
     <button class="btn btn-outline-danger mx-1" (click)="cancel()">

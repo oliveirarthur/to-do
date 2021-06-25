@@ -31,8 +31,6 @@ export class ToDoItemFormComponent implements OnInit, OnChanges {
   ngOnInit(): void {}
 
   ngOnChanges(): void {
-    console.log(this.toDo);
-
     this.form.patchValue({
       id: this.toDo.id,
       description: this.toDo.description,
@@ -46,8 +44,9 @@ export class ToDoItemFormComponent implements OnInit, OnChanges {
   updateToDoItem(item: IToDoItem) {
     this.isLoading = true;
     this.toDoService
-      .save(this.form.value)
+      .save(item)
       .then(() => {
+        this.modalService.dismissAll();
         alert('Atualizado com sucesso!');
       })
       .catch(() => {

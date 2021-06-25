@@ -4,7 +4,7 @@ import { BehaviorSubject, interval, timer } from 'rxjs';
 import { ToDoItemFormComponent } from 'src/app/components/to-do-item-form/to-do-item-form.component';
 import { ToDoService } from 'src/app/services/to-do.service';
 import { IToDoItem } from 'src/interfaces/to-do';
-import { switchMap } from 'rxjs/operators';
+import { startWith, switchMap } from 'rxjs/operators';
 
 @Component({
   selector: 'app-board',
@@ -22,7 +22,10 @@ export class BoardComponent implements OnInit {
   ngOnInit(): void {
     // FIXME: implement websocket
     const timer = interval(1000)
-      .pipe(switchMap(() => this.toDoService.list()))
+      .pipe(
+        startWith(0),
+        switchMap(() => this.toDoService.list()),
+      )
       .subscribe(async (items) => {
         this.toDos$.next(items);
       });

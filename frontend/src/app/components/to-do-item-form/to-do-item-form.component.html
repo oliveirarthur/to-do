@@ -22,12 +22,19 @@
           <label class="w-100">
             Email
             <input
-              type="email"
+              type="text"
               class="form-control"
               formControlName="email"
               required
             />
           </label>
+          <div *ngIf="didYouMean">
+            Você quis dizer
+            <a class="link-primary" (click)="replaceEmailByDidYouMean()">
+              <i> {{ didYouMean }} </i>
+            </a>
+            ?
+          </div>
         </div>
         <div class="col-12">
           <label class="w-100">

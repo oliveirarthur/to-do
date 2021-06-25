@@ -14,13 +14,14 @@ export class ToDoItemFormComponent implements OnInit, OnChanges {
 
   form = this.formBuilder.group({
     id: this.formBuilder.control(''),
-    description: this.formBuilder.control('description'),
+    description: this.formBuilder.control(''),
     isComplete: this.formBuilder.control(false),
     assignee: this.formBuilder.group({
-      name: this.formBuilder.control('name'),
-      email: this.formBuilder.control('email@example.com'),
+      name: this.formBuilder.control(''),
+      email: this.formBuilder.control(''),
     }),
   });
+  didYouMean = '';
   isLoading = false;
 
   constructor(
@@ -51,7 +52,14 @@ export class ToDoItemFormComponent implements OnInit, OnChanges {
         this.modalService.dismissAll();
         alert((item.id ? 'Atualizado' : 'Inserido') + ' com sucesso!');
       })
-      .catch(() => {
+      .catch((error) => {
+        if (error.email) {
+          return alert('Informe um email valido');
+        }
+        if (!error.mx_found) {
+          this.didYouMean = error.did_you_mean;
+          return alert('MX não encontrado!');
+        }
         alert(
           'Ocorreu um erro ao atualizar o item, por favor, tente novamente.',
         );
@@ -63,5 +71,10 @@ export class ToDoItemFormComponent implements OnInit, OnChanges {
 
   cancel() {
     this.modalService.dismissAll();
+  }
+
+  replaceEmailByDidYouMean() {
+    this.form.get('assignee.email')?.setValue(this.didYouMean);
+    this.didYouMean = '';
   }
 }

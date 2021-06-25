@@ -23,7 +23,7 @@
     </button>
     <button
       class="btn btn-sm btn-outline-primary mx-1"
-      [disabled]="toDo.is_complete && toDo.change_count >= 2"
+      [disabled]="toDo.is_complete && toDo.change_count > 3"
       [ngbTooltip]="tooltip(toDo)"
       (click)="changeStatus(toDo)"
     >

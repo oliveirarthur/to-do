@@ -58,7 +58,7 @@ export default class ToDosController {
   public async changeStatus({ request, response, params: { id } }: HttpContextContract) {
     const { password } = request.body()
     const toDoInstance = await ToDo.findOrFail(id)
-    if (toDoInstance.is_complete && toDoInstance.change_count >= 2) {
+    if (toDoInstance.is_complete && toDoInstance.change_count > 3) {
       throw new Error('Este item já foi alterado duas vezes')
     }
     if (toDoInstance.is_complete && password !== 'TrabalheNaSaipos') {

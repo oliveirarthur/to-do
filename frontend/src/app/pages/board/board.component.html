@@ -5,7 +5,10 @@
       <small> ({{ toDos?.pending?.length }}) </small>
     </div>
     <ng-container *ngIf="toDos?.pending?.length > 0; else noPendingToDos">
-      <div class="col my-3" *ngFor="let toDo of toDos.pending">
+      <div
+        class="col-6 col-md-3 col-lg-2 my-3"
+        *ngFor="let toDo of toDos.pending"
+      >
         <app-to-do-item [toDo]="toDo"></app-to-do-item>
       </div>
     </ng-container>
@@ -19,7 +22,10 @@
       Completas <small> ({{ toDos?.completed?.length }}) </small>
     </div>
     <ng-container *ngIf="toDos?.completed?.length > 0; else noCompletedToDos">
-      <div class="col my-3" *ngFor="let toDo of toDos.completed">
+      <div
+        class="col-6 col-md-3 col-lg-2 my-3"
+        *ngFor="let toDo of toDos.completed"
+      >
         <app-to-do-item [toDo]="toDo"></app-to-do-item>
       </div>
     </ng-container>

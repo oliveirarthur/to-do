@@ -52,7 +52,7 @@ export class ToDoItemComponent implements OnInit {
   }
 
   tooltip(toDo: IToDoItem) {
-    if (toDo.is_complete && toDo.change_count >= 2) {
+    if (toDo.is_complete && toDo.change_count > 3) {
       return 'Este item  já foi alterado duas vezes';
     }
     if (toDo.is_complete) {

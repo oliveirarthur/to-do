@@ -1,15 +1,21 @@
 <div class="card">
-  <form [formGroup]="form">
-    <div class="card-header text-nowrap text-center" *ngIf="toDo.title">
-      {{ toDo.title }}
+  <div class="card-header">
+    <div class="">{{ toDo.description }}</div>
+  </div>
+  <div class="card-body">
+    <div>
+      {{ toDo.assignee.name }}
+      <small>
+        <a [href]="'mailto:' + toDo.assignee.email">
+          {{ toDo.assignee.email }}
+        </a>
+      </small>
     </div>
-    <div class="card-body">
-      <div class="text-nowrap" *ngFor="let item of toDo.items">
-        <label>
-          <input type="checkbox" [formControlName]="item.id" />
-          {{ item.description }}
-        </label>
-      </div>
-    </div>
-  </form>
+  </div>
+
+  <div class="card-footer">
+    <button class="btn btn-sm btn-outline-primary" (click)="openEdit(toDo)">
+      <i class="fas fa-edit"></i>
+    </button>
+  </div>
 </div>

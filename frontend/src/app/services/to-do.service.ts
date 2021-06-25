@@ -1,4 +1,5 @@
 import { Injectable } from '@angular/core';
+import { IToDoItem } from 'src/interfaces/to-do';
 
 @Injectable({
   providedIn: 'root',
@@ -10,15 +11,17 @@ export class ToDoService {
     return Array.from({ length: 100 }, (v, k) => {
       return {
         id: k,
-        title: `ToDo item ${k}`,
-        items: Array.from({ length: 10 }, (v, k) => {
-          return {
-            id: k,
-            description: `Item ${k + 1}`,
-            checked: false,
-          };
-        }),
-      };
+        description: `Task ${k}`,
+        assignee: {
+          name: `Responsável ${k}`,
+          email: `assignee@example.com`,
+        },
+      } as IToDoItem;
     });
+  }
+
+  async save(item: IToDoItem) {
+    console.log(`🚀 ~ item`, item);
+    return item;
   }
 }

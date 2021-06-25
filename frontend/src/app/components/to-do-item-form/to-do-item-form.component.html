@@ -1,0 +1,54 @@
+<div class="card">
+  <form [formGroup]="form">
+    <div class="card-header text-nowrap">
+      {{ this.toDo?.id ? 'Editar' : 'Inserir' }} item
+    </div>
+    <div class="card-body">
+      <label class="w-100">
+        Descrição
+        <textarea
+          class="form-control"
+          formControlName="description"
+          required
+          rows="5"
+          autofocus
+        ></textarea>
+      </label>
+    </div>
+    <div class="card-header border-top text-nowrap">Responsável</div>
+    <div class="card-body" formGroupName="assignee">
+      <div class="row g-3">
+        <div class="col-12">
+          <label class="w-100">
+            Email
+            <input
+              type="email"
+              class="form-control"
+              formControlName="email"
+              required
+            />
+          </label>
+        </div>
+        <div class="col-12">
+          <label class="w-100">
+            Nome
+            <input
+              type="text"
+              class="form-control"
+              formControlName="name"
+              required
+            />
+          </label>
+        </div>
+      </div>
+    </div>
+  </form>
+  <div class="card-footer">
+    <button class="btn btn-outline-primary" [disabled]="form.invalid">
+      Salvar
+    </button>
+    <button class="btn btn-outline-danger mx-1" (click)="cancel()">
+      Cancelar
+    </button>
+  </div>
+</div>

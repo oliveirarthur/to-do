@@ -1,7 +1,11 @@
-<div class="container-fluid">
+<div class="container-fluid mb-5">
   <div class="row">
     <div class="col my-3" *ngFor="let toDo of toDos$ | async">
       <app-to-do-item [toDo]="toDo"></app-to-do-item>
     </div>
   </div>
 </div>
+
+<button class="btn btn-primary rounded-circle fab-add-item" (click)="openNew()">
+  <i class="fas fa-plus"></i>
+</button>
